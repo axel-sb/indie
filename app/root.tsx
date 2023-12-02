@@ -1,3 +1,5 @@
+
+      // #region Region 
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
@@ -21,7 +23,7 @@ export const links: LinksFunction = () => [
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   return json({ user: await getUser(request) });
 };
-
+      // #endregion
 export default function App() {
   return (
     <html lang="en" className="h-full">
@@ -29,7 +31,7 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
-        <Links />
+        <Links /> 
       </head>
       <body className="h-full">
         <Outlet />

@@ -1,5 +1,10 @@
+// https://dev.to/isnan__h/seeding-your-database-with-prisma-orm-935
+// github.com/prisma/prisma-examples/blob/latest/typescript/remix/prisma/seed.ts
+// =============================================================================
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+
+import {articleArray} from "./data";
 
 const prisma = new PrismaClient();
 
@@ -35,10 +40,42 @@ async function seed() {
   await prisma.note.create({
     data: {
       title: "My second note",
-      body: "Hello, world!",
+      body: "Hello again, world!",
       userId: user.id,
     },
   });
+
+  // create article records from the articleArray
+  for (const article of articleArray) {
+    const {
+      edition,
+      editionName,
+      page,
+      pageName,
+      articleImage,
+      author,
+      title,
+      articleContent,
+      authorDetails,
+    } = article;
+
+    await prisma.article.create({
+      data: {
+        edition,
+        editionName,
+        page,
+        pageName,
+        articleImage,
+        author,
+        title,
+        articleContent: articleContent || "",
+        authorDetails,
+      },
+    });
+  }
+
+  const articles = await prisma.article.findMany();
+  console.log(articles);
 
   console.log(`Database has been seeded. 🌱`);
 }
