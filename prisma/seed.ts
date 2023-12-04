@@ -67,7 +67,7 @@ async function seed() {
         pageName,
         articleImage,
         author,
-        title,
+        title: title || "",
         articleContent: articleContent || "",
         authorDetails,
       },

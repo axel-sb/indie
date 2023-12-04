@@ -33,7 +33,7 @@ model Note {
 }
 
 model Article {
-  id             Int @id @default(autoincrement())
+  id             String @id @default(cuid())
   edition        String
   editionName    String
   page           String

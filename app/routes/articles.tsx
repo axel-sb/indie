@@ -3,16 +3,15 @@ import { json } from "@remix-run/node";
 import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
 
 import { getArticleListItems } from "~/models/article.server";
-import { useUser } from "~/utils";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const articleListItems = await getArticleListItems();
+  console.log(articleListItems);
   return json({ articleListItems });
 };
 
 export default function ArticlesPage() {
   const data = useLoaderData<typeof loader>();
-  const user = useUser();
 
   return (
     <div className="flex h-full min-h-screen flex-col">
@@ -20,7 +19,6 @@ export default function ArticlesPage() {
         <h1 className="text-3xl font-bold">
           <Link to=".">Articles</Link>
         </h1>
-        <p>{user.email}</p>
         <Form action="/logout" method="post">
           <button
             type="submit"
@@ -49,6 +47,7 @@ export default function ArticlesPage() {
                     className={({ isActive }) =>
                       `block border-b p-4 text-xl ${isActive ? "bg-white" : ""}`
                     }
+                    // convert id to String because NavLink only accepts strings
                     to={article.id}
                   >
                     📝 {article.title}
