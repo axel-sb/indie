@@ -2,7 +2,7 @@ import type { Article } from "@prisma/client";
 
 import { prisma } from "~/db.server";
 
-export function getArticle({ id, }: Pick<Article, "id">) {
+export function getArticle({ id }: Pick<Article, "id">) {
   return prisma.article.findFirst({
     select: {
       id: true,
@@ -14,7 +14,8 @@ export function getArticle({ id, }: Pick<Article, "id">) {
       editionName: true,
       author: true,
       authorDetails: true,
-      articleImage: true,
+      image_sm: true,
+      image_lg: true,
     },
     where: { id },
     /* orderBy: { page: "asc" }, */
@@ -32,9 +33,10 @@ export function getArticleListItems() {
       editionName: true,
       author: true,
       authorDetails: true,
-      articleImage: true,
+      image_sm: true,
+      image_lg: true,
     },
-    
+
     orderBy: { page: "asc" },
   });
 }
@@ -44,19 +46,33 @@ export function createArticle({
   editionName,
   page,
   pageName,
-  articleImage,
+  image_sm,
+  image_lg,
   author,
   title,
   articleContent,
   authorDetails,
-}: Pick<Article, "articleContent" | "title" | "articleImage" | "author" | "authorDetails" | "edition" | "editionName" | "page" | "pageName" >) {
+}: Pick<
+  Article,
+  | "articleContent"
+  | "title"
+  | "image_sm"
+  | "image_lg"
+  | "author"
+  | "authorDetails"
+  | "edition"
+  | "editionName"
+  | "page"
+  | "pageName"
+>) {
   return prisma.article.create({
     data: {
       edition,
       editionName,
       page,
       pageName,
-      articleImage,
+      image_sm,
+      image_lg,
       author,
       title,
       articleContent,
@@ -65,9 +81,7 @@ export function createArticle({
   });
 }
 
-export function deleteArticle({
-  id,
-}: Pick<Article, "id"> ) {
+export function deleteArticle({ id }: Pick<Article, "id">) {
   return prisma.article.deleteMany({
     where: { id },
   });

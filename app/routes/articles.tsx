@@ -30,12 +30,8 @@ export default function ArticlesPage() {
       </header>
 
       <main className="flex h-full bg-white">
-        <div className="h-full w-80 border-r bg-gray-50">
-          <Link to="new" className="block p-4 text-xl text-blue-500">
-            + New Article
-          </Link>
-
-          <hr />
+        <div className="h-full w-32 border-r bg-gray-50">
+          
 
           {data.articleListItems.length === 0 ? (
             <p className="p-4">No articles yet</p>
@@ -48,9 +44,10 @@ export default function ArticlesPage() {
                       `block border-b p-4 text-xl ${isActive ? "bg-white" : ""}`
                     }
                     // convert id to String because NavLink only accepts strings
-                    to={article.id}
+                    to={(article.id).toString()} 
                   >
                     📝 {article.title}
+                    <img src={article.image_sm} alt={article.title} />
                   </NavLink>
                 </li>
               ))}

@@ -13,7 +13,7 @@ import { getArticle } from "~/models/article.server";
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   invariant(params.articleId, "articleId not found");
 
-  const article = await getArticle({ id: params.articleId });
+  const article = await getArticle({ id: Number(params.articleId) });
   if (!article) {
     throw new Response("Not Found at all", { status: 404 });
     console.log("Not Found at all");
@@ -29,7 +29,7 @@ export default function ArticleDetailsPage() {
 
   return (
     <div>
-      <img src={data.article.articleImage} alt={data.article.title} />
+      <img src={data.article.image_lg} alt={data.article.title} />
       <h3 className="text-2xl font-bold">{data.article.title}</h3>
       <p className="py-6">{data.article.articleContent}</p>
       <hr className="my-4" />
