@@ -57,7 +57,7 @@ export default function Index() {
               </div>
               <a href="https://remix.run">
                 <img
-                  src="images/logo-fiftyfifty.svg"
+                  src="https://raw.githubusercontent.com/axel-sb/indie/main/app/images/logo-fiftyfifty.svg"
                   alt="Remix"
                   className="mx-auto mt-16 w-full max-w-[12rem] md:max-w-[16rem]"
                 />
